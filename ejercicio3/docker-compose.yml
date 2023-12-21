@@ -4,12 +4,14 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=wordpress
-      - MYSQL_USER=wordpress
-      - MYSQL_PASSWORD=wordpress
+      - MYSQL_ROOT_PASSWORD={MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE={MYSQL_DATABASE}
+      - MYSQL_USER={MYSQL_USER}
+      - MYSQL_PASSWORD={MYSQL_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
+    env_file: 
+      - variables.env
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
@@ -26,11 +28,16 @@ services:
       - "80:80"
     restart: always
     environment:
-      - WORDPRESS_DB_HOST=mysql
-      - WORDPRESS_DB_USER=wordpress
-      - WORDPRESS_DB_PASSWORD=wordpress
-      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_DB_HOST={WORDPRESS_DB_HOST}
+      - WORDPRESS_DB_USER={WORDPRESS_DB_USER}
+      - WORDPRESS_DB_PASSWORD={WORDPRESS_DB_PASSWORD}
+      - WORDPRESS_DB_NAME={WORDPRESS_DB_NAME}
+    env_file: 
+      - variables.env
+    
+   
 
 volumes:
   db_data:
   wp_data:
+
